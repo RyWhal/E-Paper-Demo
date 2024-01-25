@@ -98,7 +98,7 @@ while True:
     try:
         epd = init_display()
         draw, draw_image = init_image(epd)
-        get_input_text()
+        #get_input_text(e)
         partial_update_text(draw, draw_image, epd)
         #capture_and_display_input(draw,epd) 
 
