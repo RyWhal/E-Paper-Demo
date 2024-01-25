@@ -29,7 +29,10 @@ def init_image(epd):
 
 def display_image(draw, draw_image, epd):
     logging.info("Keyboard input...")
-    text = ""
+    text = "Startup Text"
+    draw.text((10, 10), text, font=font18, fill=0)
+    epd.display_Partial(epd.getbuffer(draw_image))
+    
     while True:
         if keyboard.is_pressed('esc'):
             break  # Exit on pressing Escape key
