@@ -13,6 +13,8 @@ logging.info("epd4in2 Demo")
 logging.info("set font object")
 font18 = ImageFont.truetype('Font.ttc', 18)
 
+text = ""
+
 #Startup keyboard ---
 
 
@@ -57,7 +59,7 @@ def capture_and_display_input(draw, epd):
 # Not currently working. This method is displaying some of the CLI for some reason. 
 def get_input_text(e):
     logging.info("Enter display_image()")
-    text = "init text"
+    global text
     #while True:
     #logging.info("enter display_image while loop")
     #key_event = keyboard.read_event()
@@ -78,7 +80,7 @@ def get_input_text(e):
 
     return text
 
-def partial_update_text(draw, draw_image, epd):
+def partial_update_text(draw, draw_image,text, epd):
     logging.info("draw text")
     draw.rectangle((0, 0, 300, 30), fill=255)
     draw.text((10, 10), text, font=font18, fill=0)
@@ -99,7 +101,7 @@ while True:
         epd = init_display()
         draw, draw_image = init_image(epd)
         #get_input_text(e)
-        partial_update_text(draw, draw_image, epd)
+        partial_update_text(draw, draw_image, text, epd)
         #capture_and_display_input(draw,epd) 
 
     except IOError as e:
