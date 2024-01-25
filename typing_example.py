@@ -4,6 +4,7 @@ import logging
 from waveshare_epd import epd4in2_V2
 from PIL import Image,ImageDraw,ImageFont
 import keyboard
+import time
 
 logging.basicConfig(level=logging.DEBUG)
 logging.info("epd4in2 Demo")
@@ -51,8 +52,8 @@ def capture_and_display_input(draw, epd):
 
 # Not currently working. This method is displaying some of the CLI for some reason. 
 def display_image(draw, draw_image, epd):
-    current_text = ""
-    while True:
+    current_text = "init text"
+    while (True):
         key_event = keyboard.read_event()
         if key_event.event_type == keyboard.KEY_DOWN:
             key = key_event.name
@@ -61,11 +62,13 @@ def display_image(draw, draw_image, epd):
             elif key == 'backspace':
                 current_text = current_text[:-1]
             elif len(key) == 1:  # Check if the key is a character
+                print("key pressed" + key)
                 current_text += key
+            time.sleep(.1)
 
-            draw.rectangle((0, 0, 300, 30), fill=255)
-            draw.text((10, 10), current_text, font=font18, fill=0)
-            epd.display_Partial(epd.getbuffer(draw_image))
+        draw.rectangle((0, 0, 300, 30), fill=255)
+        draw.text((10, 10), current_text, font=font18, fill=0)
+        epd.display_Partial(epd.getbuffer(draw_image))
 
 def cleanup(epd):
     # Cleanup and sleep
