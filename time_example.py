@@ -7,6 +7,9 @@ from PIL import Image,ImageDraw,ImageFont
 
 logging.basicConfig(level=logging.DEBUG)
 
+
+
+
 try:
     logging.info("epd4in2 Demo")
     
