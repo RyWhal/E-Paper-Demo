@@ -5,12 +5,18 @@ from waveshare_epd import epd4in2_V2
 from PIL import Image,ImageDraw,ImageFont
 import keyboard
 import time
+import signal
 
 logging.basicConfig(level=logging.DEBUG)
 logging.info("epd4in2 Demo")
 
 logging.info("set font object")
 font18 = ImageFont.truetype('Font.ttc', 18)
+
+#Startup keyboard ---
+keyboard.on_press(handle_key_down, suppress=False) #handles modifiers and shortcuts
+keyboard.on_release(handle_key_press, suppress=True)
+signal.signal(signal.SIGINT, handle_interrupt)
 
 def init_display():
     #initialize and clear display
@@ -59,7 +65,7 @@ def display_image(draw, draw_image, epd):
     #key_event = keyboard.read_event()
     #if key_event.event_type == keyboard.KEY_DOWN:
     #key = key_event.name
-    key = keyboard.read_key()
+    key = e.name
     logging.info("succesfully read a key")
     if key == 'enter':
         logging.info("enter")
