@@ -59,7 +59,7 @@ def display_image(draw, draw_image, epd):
     #key_event = keyboard.read_event()
     #if key_event.event_type == keyboard.KEY_DOWN:
     #key = key_event.name
-    key = keyboard.read_key()
+    key = keyboard.is_pressed()
     logging.info("succesfully read a key")
     if key == 'enter':
         logging.info("enter")
