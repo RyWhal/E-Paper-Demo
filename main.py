@@ -16,12 +16,16 @@ try:
     epd.init()
     epd.Clear()
 
+    logging.info("set font object")
     font18 = ImageFont.truetype(os.path.join(picdir, 'Font.ttc'), 18)
 
+    logging.info("Draw Image")
     draw_image = Image.new('1', (epd.width, epd.height), 255)  # 255: clear the frame
+    
+    logging.info("set image object")
     draw = ImageDraw.Draw(draw_image)
 
-    logging.info("5.show time...")
+    logging.info("show time...")
     num = 0
     while (True):
         draw.rectangle((140, 80, 240, 105), fill = 255)
