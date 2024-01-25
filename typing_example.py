@@ -24,9 +24,9 @@ def init_image():
     
     logging.info("set image object")
     draw = ImageDraw.Draw(draw_image)
-    return draw
+    return draw,draw_image
 
-def display_image(draw,epd):
+def display_image(draw, draw_image, epd):
     logging.info("show time...")
     num = 0
     while (True):
@@ -49,8 +49,8 @@ def cleanup(epd):
 
 try:
     epd = init_display()
-    draw = init_image()
-    display_image(draw,epd)
+    draw, draw_image = init_image(epd)
+    display_image(draw, draw_image, epd)
     cleanup(epd)
 
 
