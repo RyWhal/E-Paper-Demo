@@ -96,10 +96,10 @@ def cleanup(epd):
 
 keyboard.on_press(get_input_text, suppress=False) #handles keyboard input
 epd = init_display()
+draw, draw_image = init_image(epd)
 
 while True:
     try:
-        draw, draw_image = init_image(epd)
         #get_input_text(e)
         partial_update_text(draw, draw_image, text, epd)
         #capture_and_display_input(draw,epd) 
