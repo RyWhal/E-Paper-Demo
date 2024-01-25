@@ -76,7 +76,7 @@ def get_input_text(e):
     elif len(key) == 1:  # Check if the key is a character
         logging.info("key pressed" + key)
         text += key
-    time.sleep(.1)
+    time.sleep(.05)
 
     return text
 
@@ -102,6 +102,7 @@ while True:
     try:
         #get_input_text(e)
         partial_update_text(draw, draw_image, text, epd)
+        time.sleep(1)
         #capture_and_display_input(draw,epd) 
 
     except IOError as e:
