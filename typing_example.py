@@ -8,7 +8,7 @@ import keyboard
 
 logging.basicConfig(level=logging.DEBUG)
 logging.info("set font object")
-font18 = ImageFont.truetype('Font.ttc', 18)
+font18 = ImageFont.truetype('Font.ttc', 12)
 
 def init_display():
     logging.info("epd4in2 Demo")
@@ -37,8 +37,10 @@ def display_image(draw, draw_image, epd):
             key = keyboard.read_key()
             if key == 'space':
                 key = ' '  # Replace 'space' with a space character
+            elif key == 'a':
+                key = 'a'
             text += key
-            draw.rectangle((0, 0, 300, 30), fill=255)  # Adjust as needed
+            draw.rectangle((0, 0, 400, 300), fill=255)  # Adjust as needed
             draw.text((10, 10), text, font=font18, fill=0)
             epd.display_Partial(epd.getbuffer(draw_image))
             time.sleep(0.1)  # Adjust as needed for responsiveness
