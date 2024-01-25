@@ -18,7 +18,7 @@ def init_display():
     epd.Clear()
     return epd
 
-def init_image():
+def init_image(epd):
     logging.info("Draw Image")
     draw_image = Image.new('1', (epd.width, epd.height), 255)  # 255: clear the frame
     
