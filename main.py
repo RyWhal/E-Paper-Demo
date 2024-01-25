@@ -5,7 +5,6 @@ from waveshare_epd import epd4in2_V2
 import time
 from PIL import Image,ImageDraw,ImageFont
 
-picdir = os.path.join(os.path.dirname(os.path.dirname(os.path.realpath(__file__))), 'fonts')
 logging.basicConfig(level=logging.DEBUG)
 
 try:
@@ -17,7 +16,7 @@ try:
     epd.Clear()
 
     logging.info("set font object")
-    font18 = ImageFont.truetype(os.path.join(picdir, 'Font.ttc'), 18)
+    font18 = ImageFont.truetype('Font.ttc', 18)
 
     logging.info("Draw Image")
     draw_image = Image.new('1', (epd.width, epd.height), 255)  # 255: clear the frame
