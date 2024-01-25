@@ -72,12 +72,11 @@ def get_input_text(e):
         text += '\n'
     elif key == 'backspace':
         logging.info("backspace")
-        text = current_text[:-1]
+        text = text[:-1]
     elif len(key) == 1:  # Check if the key is a character
         logging.info("key pressed" + key)
         text += e.name
     time.sleep(.05)
-
     return text
 
 def partial_update_text(draw, draw_image,text, epd):
@@ -94,13 +93,12 @@ def cleanup(epd):
     logging.info("Goto Sleep...")
     epd.sleep()
 
-keyboard.on_press(get_input_text, suppress=False) #handles keyboard input
+keyboard.on_press(get_input_text, suppress=True) #handles keyboard input
 epd = init_display()
 draw, draw_image = init_image(epd)
 
 while True:
     try:
-        #get_input_text(e)
         partial_update_text(draw, draw_image, text, epd)
         time.sleep(1)
         #capture_and_display_input(draw,epd) 
