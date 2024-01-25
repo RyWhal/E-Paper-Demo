@@ -14,9 +14,7 @@ logging.info("set font object")
 font18 = ImageFont.truetype('Font.ttc', 18)
 
 #Startup keyboard ---
-keyboard.on_press(handle_key_down, suppress=False) #handles modifiers and shortcuts
-keyboard.on_release(handle_key_press, suppress=True)
-signal.signal(signal.SIGINT, handle_interrupt)
+
 
 def init_display():
     #initialize and clear display
@@ -57,9 +55,9 @@ def capture_and_display_input(draw, epd):
 '''
 
 # Not currently working. This method is displaying some of the CLI for some reason. 
-def display_image(draw, draw_image, epd):
+def get_input_text(e):
     logging.info("Enter display_image()")
-    current_text = "init text"
+    text = "init text"
     #while True:
     #logging.info("enter display_image while loop")
     #key_event = keyboard.read_event()
@@ -69,18 +67,21 @@ def display_image(draw, draw_image, epd):
     logging.info("succesfully read a key")
     if key == 'enter':
         logging.info("enter")
-        current_text += '\n'
+        text += '\n'
     elif key == 'backspace':
         logging.info("backspace")
-        current_text = current_text[:-1]
+        text = current_text[:-1]
     elif len(key) == 1:  # Check if the key is a character
         logging.info("key pressed" + key)
-        current_text += key
+        text += key
     time.sleep(.1)
 
+    return text
+
+def partial_update_text(draw, draw_image, epd):
     logging.info("draw text")
     draw.rectangle((0, 0, 300, 30), fill=255)
-    draw.text((10, 10), current_text, font=font18, fill=0)
+    draw.text((10, 10), text, font=font18, fill=0)
     epd.display_Partial(epd.getbuffer(draw_image))
 
 def cleanup(epd):
@@ -91,18 +92,21 @@ def cleanup(epd):
     logging.info("Goto Sleep...")
     epd.sleep()
 
+keyboard.on_press(get_input_text, suppress=False) #handles keyboard input
 
-try:
-    epd = init_display()
-    draw, draw_image = init_image(epd)
-    display_image(draw, draw_image, epd)
-    #capture_and_display_input(draw,epd)
-    cleanup(epd)  
+while True:
+    try:
+        epd = init_display()
+        draw, draw_image = init_image(epd)
+        get_input_text()
+        partial_update_text(draw, draw_image, epd)
+        #capture_and_display_input(draw,epd) 
 
-except IOError as e:
-    logging.info(e)
-    
-except KeyboardInterrupt:    
-    logging.info("ctrl + c:")
-    epd4in2_V2.epdconfig.module_exit(cleanup=True)
-    exit()
+    except IOError as e:
+        logging.info(e)
+        
+    except KeyboardInterrupt:    
+        logging.info("ctrl + c:")
+        epd4in2_V2.epdconfig.module_exit(cleanup=True)
+        cleanup(epd) 
+        exit()
