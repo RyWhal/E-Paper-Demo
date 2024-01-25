@@ -75,7 +75,7 @@ def get_input_text(e):
         text = current_text[:-1]
     elif len(key) == 1:  # Check if the key is a character
         logging.info("key pressed" + key)
-        text += key
+        text += e.name
     time.sleep(.05)
 
     return text
