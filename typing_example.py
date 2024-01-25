@@ -54,27 +54,27 @@ def capture_and_display_input(draw, epd):
 def display_image(draw, draw_image, epd):
     logging.info("Enter display_image()")
     current_text = "init text"
-    while (True):
-        logging.info("enter display_image while loop")
-        #key_event = keyboard.read_event()
-        #if key_event.event_type == keyboard.KEY_DOWN:
-        #key = key_event.name
-        key = keyboard.read_key()
-        if key == 'enter':
-            logging.info("enter")
-            current_text += '\n'
-        elif key == 'backspace':
-            logging.info("backspace")
-            current_text = current_text[:-1]
-        elif len(key) == 1:  # Check if the key is a character
-            logging.info("key pressed" + key)
-            current_text += key
-        time.sleep(.1)
+    #while True:
+    #logging.info("enter display_image while loop")
+    #key_event = keyboard.read_event()
+    #if key_event.event_type == keyboard.KEY_DOWN:
+    #key = key_event.name
+    key = keyboard.read_key()
+    if key == 'enter':
+        logging.info("enter")
+        current_text += '\n'
+    elif key == 'backspace':
+        logging.info("backspace")
+        current_text = current_text[:-1]
+    elif len(key) == 1:  # Check if the key is a character
+        logging.info("key pressed" + key)
+        current_text += key
+    time.sleep(.1)
 
-        logging.info("draw text")
-        draw.rectangle((0, 0, 300, 30), fill=255)
-        draw.text((10, 10), current_text, font=font18, fill=0)
-        epd.display_Partial(epd.getbuffer(draw_image))
+    logging.info("draw text")
+    draw.rectangle((0, 0, 300, 30), fill=255)
+    draw.text((10, 10), current_text, font=font18, fill=0)
+    epd.display_Partial(epd.getbuffer(draw_image))
 
 def cleanup(epd):
     # Cleanup and sleep
