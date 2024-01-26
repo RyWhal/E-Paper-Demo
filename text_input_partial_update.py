@@ -36,6 +36,8 @@ def get_input_text(e):
     elif e.name == 'backspace':
         logging.info("\nKey Pressed:" + e.name)
         text = text[:-1]
+    elif e.name == 'space':
+        text += ' '
     elif len(e.name) == 1:  # Check if the key is a character
         logging.info("\nKey Pressed:" + e.name)
         text += e.name
