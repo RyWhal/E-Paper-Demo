@@ -8,8 +8,8 @@ import time
 import signal
 
 #initialize some vars
-logging.basicConfig(level=logging.DEBUG)
-font18 = ImageFont.truetype('Font.ttc', 11)
+logging.basicConfig(level=logging.INFO)
+font18 = ImageFont.truetype('Font.ttc', 12)
 text = " "
 chars_per_line = 45
 lines_on_screen = 25
@@ -71,7 +71,7 @@ keyboard.on_press(get_input_text, suppress=True) #handles keyboard input
 
 try:
     while True:
-        time.sleep(.3)
+        time.sleep(.1)
         partial_update_text(draw, draw_image, text, epd)
     
 
