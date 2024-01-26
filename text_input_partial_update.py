@@ -39,9 +39,8 @@ def get_input_text(e):
     elif len(e.name) == 1:  # Check if the key is a character
         logging.info("\nKey Pressed:" + e.name)
         text += e.name
-    partial_update_text(draw,draw_image,epd,text)
     time.sleep(.05)
-    return text
+    
 
 def partial_update_text(draw, draw_image,text, epd):
     logging.info("draw text")
@@ -65,12 +64,12 @@ def cleanup(epd):
 
 epd = init_display() #initialize the display one time. 
 draw, draw_image = init_image(epd)
-keyboard.on_press(get_input_text(draw, draw_image,epd), suppress=True) #handles keyboard input
+keyboard.on_press(get_input_text, suppress=True) #handles keyboard input
 
 
 try:
     while True:
-        time.sleep(60)
+        time.sleep(10)
         full_update_text(draw, draw_image, text, epd)
     
 
