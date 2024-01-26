@@ -13,7 +13,6 @@ logging.basicConfig(level=logging.DEBUG)
 #logging.info("set font object")
 font18 = ImageFont.truetype('Font.ttc', 18)
 
-time_since_last_update =
 text = ""
 
 
