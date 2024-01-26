@@ -3,14 +3,20 @@ import logging
 import keyboard
 import time
 
-def on_key_event(e):
-    print(f"Key: {e.name}")
+logging.basicConfig(level=logging.DEBUG)
+text = ""
 
-keyboard.on_press(on_key_event)
+def get_input_text(e):
+    global text
 
-print("Listening for keypresses... Press Ctrl+C to stop.")
-try:
-    keyboard.wait()
-except KeyboardInterrupt:
-    print("Stopped listening for keypresses.")
+        text += e.name
+    time.sleep(.05)
+    return text
+
+print("start the keyboard listener")
+keyboard.on_press(get_input_text, suppress=True) #handles keyboard input
+
+while True:
+    print("Text is:"+text)
+    time.sleep(5)
 

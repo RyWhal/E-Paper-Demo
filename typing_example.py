@@ -13,6 +13,7 @@ logging.basicConfig(level=logging.DEBUG)
 #logging.info("set font object")
 font18 = ImageFont.truetype('Font.ttc', 18)
 
+time_since_last_update =
 text = ""
 
 
@@ -22,7 +23,7 @@ def init_display():
     #logging.info("init and Clear")
     epd.init()
     epd.Clear()
-    return epd
+    return epd 
 
 def init_image(epd):
     #logging.info("Draw Image")
@@ -35,6 +36,7 @@ def init_image(epd):
 def get_input_text(e):
     logging.info("Enter display_image()")
     global text
+    text = "init text"
     #while True:
     #logging.info("enter display_image while loop")
     #key_event = keyboard.read_event()
@@ -51,26 +53,26 @@ def get_input_text(e):
     elif len(key) == 1:  # Check if the key is a character
         logging.info("\nKey Pressed:" + e.name)
         text += e.name
-    time.sleep(.05)
+    time.sleep(.1)
     return text
 
 def partial_update_text(draw, draw_image,text, epd):
     logging.info("draw text")
-    draw.rectangle((0, 0, 300, 30), fill=255)
-    draw.text((10, 10), text, font=font18, fill=0)
+    draw.rectangle((140, 80, 240, 105), fill = 255)
+    draw.text((140, 80), text, font = font18, fill=0)
     epd.display_Partial(epd.getbuffer(draw_image))
 
 def cleanup(epd):
     # Cleanup and sleep
-    #logging.info("Clear...")
     epd.init()
     epd.Clear()
-    #logging.info("Goto Sleep...")
     epd.sleep()
 
+# start keyboard listener and callback to get_input_text method
 keyboard.on_press(get_input_text, suppress=True) #handles keyboard input
-epd = init_display()
+epd = init_display() #initialize the display one time. 
 draw, draw_image = init_image(epd)
+epd.init_fast(epd.Seconds_1_5S)
 
 while True:
     try:
