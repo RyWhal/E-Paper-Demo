@@ -5,9 +5,6 @@ from waveshare_epd import epd4in2_V2
 from PIL import Image,ImageDraw,ImageFont
 import keyboard
 import time
-import signal
-
-
 
 class text_partial_update:
     def __init__(self):
@@ -19,13 +16,13 @@ class text_partial_update:
     def init_display(self):
         #initialize and clear display
         self.epd = epd4in2_V2.EPD()
-        #logging.info("init and Clear")
+        logging.info("init and Clear")
         self.epd.init()
         self.epd.Clear()
         #return epd 
 
-    def init_image(self, epd):
-        #logging.info("Draw Image")
+    def init_image(self):
+        logging.info("Draw Image")
         self.draw_image = Image.new('1', (self.epd.width, self.epd.height), 255)  # 255: clear the frame
         #logging.info("set image object")
         self.draw = ImageDraw.Draw(self.draw_image)
@@ -60,12 +57,14 @@ class text_partial_update:
 
 class run(text_partial_update):
     def main(self):
+        logging.info("starting main")
         # start keyboard listener and callback to get_input_text method
         keyboard.on_press(self.get_input_text, suppress=True) #handles keyboard input
         epd = self.init_display() #initialize the display one time. 
         self.draw, self.draw_image = self.init_image(epd)
 
         while True:
+            logging.info("entering main while loop")
             try:
                 self.partial_update_text()
                 time.sleep(6)
