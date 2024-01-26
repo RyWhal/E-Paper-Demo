@@ -47,6 +47,7 @@ def get_input_text(e):
 
 def partial_update_text(draw, draw_image,text, epd):
     logging.info("draw text")
+    text="TESTING"
     draw.rectangle((140, 80, 240, 105), fill = 255)
     draw.text((140, 80), text, font = font18, fill=0)
     epd.display_Partial(epd.getbuffer(draw_image))
