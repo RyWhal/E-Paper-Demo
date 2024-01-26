@@ -69,8 +69,8 @@ keyboard.on_press(get_input_text, suppress=True) #handles keyboard input
 
 try:
     while True:
-        time.sleep(10)
-        full_update_text(draw, draw_image, text, epd)
+        time.sleep(.3)
+        partial_update_text(draw, draw_image, text, epd)
     
 
 except IOError as e:
