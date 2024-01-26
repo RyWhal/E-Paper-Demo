@@ -10,7 +10,7 @@ import signal
 #initialize some vars
 logging.basicConfig(level=logging.DEBUG)
 font18 = ImageFont.truetype('Font.ttc', 11)
-text = ""
+text = " "
 chars_per_line = 45
 lines_on_screen = 25
 current_line = 0
@@ -30,7 +30,6 @@ def init_image(epd):
 # Not currently working. This method is displaying some of the CLI for some reason. 
 def get_input_text(e):
     global text
-    text = "init text"
     if e.name == 'enter':
         logging.info("\nKey Pressed:" + e.name)
         e.name += '\n'
@@ -40,7 +39,7 @@ def get_input_text(e):
     elif len(e.name) == 1:  # Check if the key is a character
         logging.info("\nKey Pressed:" + e.name)
         text += e.name
-    partial_update_text(text)
+    partial_update_text(draw,draw_image,epd,text)
     time.sleep(.05)
     return text
 
@@ -63,10 +62,10 @@ def cleanup(epd):
     epd.sleep()
 
 # start keyboard listener and callback to get_input_text method
-keyboard.on_press(get_input_text, suppress=True) #handles keyboard input
+
 epd = init_display() #initialize the display one time. 
 draw, draw_image = init_image(epd)
-
+keyboard.on_press(get_input_text(draw, draw_image,epd), suppress=True) #handles keyboard input
 
 
 try:
