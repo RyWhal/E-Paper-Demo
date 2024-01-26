@@ -9,7 +9,7 @@ import signal
 
 #initialize some vars
 logging.basicConfig(level=logging.INFO)
-font18 = ImageFont.truetype('Font.ttc', 12)
+font18 = ImageFont.truetype('Font.ttc', 13)
 text = " "
 chars_per_line = 45
 lines_on_screen = 25
@@ -67,7 +67,6 @@ def cleanup(epd):
 epd = init_display() #initialize the display one time. 
 draw, draw_image = init_image(epd)
 keyboard.on_press(get_input_text, suppress=True) #handles keyboard input
-
 
 try:
     while True:
