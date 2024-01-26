@@ -72,12 +72,13 @@ while True:
         #time.sleep(6)
         #capture_and_display_input(draw,epd) 
         count = 0
-        if(count < 10):
-            str_count = str(count)
-            text = text + " " + str_count
-            partial_update_text(draw, draw_image, text, epd)
-            count = count + 1
-        break
+        while True:
+            if(count < 10):
+                str_count = str(count)
+                text = text + " " + str_count
+                partial_update_text(draw, draw_image, text, epd)
+                count = count + 1
+            break
 
     except IOError as e:
         logging.info(e)
