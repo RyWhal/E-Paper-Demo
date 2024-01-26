@@ -18,15 +18,12 @@ current_line = 0
 def init_display():
     #initialize and clear display
     epd = epd4in2_V2.EPD()
-    #logging.info("init and Clear")
     epd.init()
     epd.Clear()
     return epd 
 
 def init_image(epd):
-    #logging.info("Draw Image")
     draw_image = Image.new('1', (epd.width, epd.height), 255)  # 255: clear the frame
-    #logging.info("set image object")
     draw = ImageDraw.Draw(draw_image)
     return draw,draw_image
 
@@ -34,7 +31,6 @@ def init_image(epd):
 def get_input_text(e):
     global text
     text = "init text"
-    logging.info("succesfully read a key")
     if e.name == 'enter':
         logging.info("\nKey Pressed:" + e.name)
         e.name += '\n'
@@ -45,7 +41,7 @@ def get_input_text(e):
         logging.info("\nKey Pressed:" + e.name)
         text += e.name
     partial_update_text(text)
-    time.sleep(.1)
+    time.sleep(.05)
     return text
 
 def partial_update_text(draw, draw_image,text, epd):
@@ -53,6 +49,12 @@ def partial_update_text(draw, draw_image,text, epd):
     draw.rectangle((0, 0, 400, 300), fill = 255)
     draw.text((0, 0), text, font = font18, fill=0)
     epd.display_Partial(epd.getbuffer(draw_image))
+
+def full_update_text(draw, draw_image,text, epd):
+    logging.info("full update")
+    draw.rectangle((0, 0, 400, 300), fill = 255)
+    draw.text((0, 0), text, font = font18, fill=0)
+    epd.display(epd.getbuffer(draw_image))
 
 def cleanup(epd):
     # Cleanup and sleep
@@ -65,17 +67,19 @@ keyboard.on_press(get_input_text, suppress=True) #handles keyboard input
 epd = init_display() #initialize the display one time. 
 draw, draw_image = init_image(epd)
 
-'''
-while True:
-    try:
-        
 
-    except IOError as e:
-        logging.info(e)
-        
-    except KeyboardInterrupt:    
-        logging.info("ctrl + c:")
-        epd4in2_V2.epdconfig.module_exit(cleanup=True)
-        cleanup(epd) 
-        exit()
-'''
+
+try:
+    while True:
+        time.sleep(60)
+        full_update_text(draw, draw_image, text, epd)
+    
+
+except IOError as e:
+    logging.info(e)
+    
+except KeyboardInterrupt:    
+    logging.info("ctrl + c:")
+    epd4in2_V2.epdconfig.module_exit(cleanup=True)
+    cleanup(epd) 
+    exit()
