@@ -73,7 +73,7 @@ while True:
         #capture_and_display_input(draw,epd) 
         count = 0
         if(count < 10):
-            text = text + " " + count
+            text = text + " " + str(count)
             partial_update_text(draw, draw_image, text, epd)
             count = count + 1
 
