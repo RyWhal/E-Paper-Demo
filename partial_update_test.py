@@ -49,8 +49,8 @@ def get_input_text(e):
 
 def partial_update_text(draw, draw_image,text, epd):
     logging.info("draw text")
-    draw.rectangle((140, 80, 240, 105), fill = 255)
-    draw.text((140, 80), text, font = font18, fill=0)
+    draw.rectangle((0, 0, 400, 300), fill = 255)
+    draw.text((5, 5), text, font = font18, fill=0)
     epd.display_Partial(epd.getbuffer(draw_image))
 
 def cleanup(epd):
@@ -73,14 +73,11 @@ while True:
         #capture_and_display_input(draw,epd) 
         count = 0
         if(count < 10):
-            text = text + " " + str(count)
+            str_count = str(count)
+            text = text + " " + str_count
             partial_update_text(draw, draw_image, text, epd)
             count = count + 1
-
-            if count == 9:
-                break
-
-
+        break
 
     except IOError as e:
         logging.info(e)
