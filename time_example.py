@@ -5,7 +5,6 @@ from waveshare_epd import epd4in2_V2
 import time
 from PIL import Image,ImageDraw,ImageFont
 
-
 logging.basicConfig(level=logging.DEBUG)
 logging.info("set font object")
 font18 = ImageFont.truetype('Font.ttc', 18)
@@ -52,10 +51,7 @@ try:
     epd = init_display()
     draw, draw_image = init_image(epd)
     display_image(draw, draw_image, epd)
-    cleanup(epd)
-
-
-    
+    cleanup(epd)  
 
 except IOError as e:
     logging.info(e)
