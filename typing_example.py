@@ -68,13 +68,13 @@ def get_input_text(e):
     key = e.name
     logging.info("succesfully read a key")
     if key == 'enter':
-        logging.info(e.name)
+        logging.info("\nKey Pressed:" + e.name)
         text += '\n'
     elif key == 'backspace':
-        logging.info(e.name)
+        logging.info("\nKey Pressed:" + e.name)
         text = text[:-1]
     elif len(key) == 1:  # Check if the key is a character
-        logging.info("key pressed" + e.name)
+        logging.info("\nKey Pressed:" + e.name)
         text += e.name
     time.sleep(.05)
     return text
