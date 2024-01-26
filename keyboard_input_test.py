@@ -8,8 +8,7 @@ text = ""
 
 def get_input_text(e):
     global text
-
-        text += e.name
+    text += e.name
     time.sleep(.05)
     return text
 
