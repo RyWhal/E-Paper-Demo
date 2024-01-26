@@ -8,53 +8,28 @@ import time
 import signal
 
 logging.basicConfig(level=logging.DEBUG)
-logging.info("epd4in2 Demo")
+#logging.info("epd4in2 Demo")
 
-logging.info("set font object")
+#logging.info("set font object")
 font18 = ImageFont.truetype('Font.ttc', 18)
 
 text = ""
-
-#Startup keyboard ---
 
 
 def init_display():
     #initialize and clear display
     epd = epd4in2_V2.EPD()
-    logging.info("init and Clear")
+    #logging.info("init and Clear")
     epd.init()
     epd.Clear()
     return epd
 
 def init_image(epd):
-    logging.info("Draw Image")
+    #logging.info("Draw Image")
     draw_image = Image.new('1', (epd.width, epd.height), 255)  # 255: clear the frame
-    logging.info("set image object")
+    #logging.info("set image object")
     draw = ImageDraw.Draw(draw_image)
     return draw,draw_image
-
-'''
-def on_key_press(key, draw, epd, current_text):
-    try:
-        if key == keyboard.Key.enter:
-            current_text += '\n'
-        elif key == keyboard.Key.backspace:
-            current_text = current_text[:-1]
-        elif hasattr(key, 'char') and key.char:
-            current_text += key.char
-
-        draw.rectangle((0, 0, 300, 30), fill=255)
-        draw.text((10, 10), current_text, font=font18, fill=0)
-        epd.display_Partial(epd.getbuffer(draw))
-    except Exception as e:
-        logging.error("Error in on_key_press: " + str(e))
-
-def capture_and_display_input(draw, epd):
-    current_text = "Initialization text"
-    listener = keyboard.Listener(on_press=lambda key: on_key_press(key, draw, epd, current_text))
-    listener.start()
-    listener.join()
-'''
 
 # Not currently working. This method is displaying some of the CLI for some reason. 
 def get_input_text(e):
@@ -87,10 +62,10 @@ def partial_update_text(draw, draw_image,text, epd):
 
 def cleanup(epd):
     # Cleanup and sleep
-    logging.info("Clear...")
+    #logging.info("Clear...")
     epd.init()
     epd.Clear()
-    logging.info("Goto Sleep...")
+    #logging.info("Goto Sleep...")
     epd.sleep()
 
 keyboard.on_press(get_input_text, suppress=True) #handles keyboard input
@@ -100,7 +75,7 @@ draw, draw_image = init_image(epd)
 while True:
     try:
         partial_update_text(draw, draw_image, text, epd)
-        time.sleep(1)
+        time.sleep(6)
         #capture_and_display_input(draw,epd) 
 
     except IOError as e:
